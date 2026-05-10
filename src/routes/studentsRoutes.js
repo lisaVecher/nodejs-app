@@ -6,15 +6,18 @@ import {
   deleteStudent,
   updateStudent,
 } from '../controllers/studentsController.js';
-import { createStudentSchema } from '../schemas/studentsSchemas.js';
 import { celebrate } from 'celebrate';
 import {
   studentIdParamSchema,
   updateStudentSchema,
   getStudentsSchema,
+  createStudentSchema,
 } from '../validations/studentsValidation.js';
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = Router();
+
+router.use('/students', authenticate);
 
 router.get('/students', celebrate(getStudentsSchema), getStudents);
 router.get(
